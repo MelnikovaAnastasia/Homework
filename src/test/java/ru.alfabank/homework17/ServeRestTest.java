@@ -143,14 +143,14 @@ public class ServeRestTest {
     @Order(5)
     @DisplayName("Смена данных клиента")
     public void shouldUpdateUser() {
-        String updateBody = """
+        String updateBody = String.format("""
                 {
                   "nome": "Обновлённый Покупатель",
-                  "email": "spy_updated@qa.com",
+                  "email": "%s",
                   "password": "secret123",
                   "administrador": "false"
                 }
-                """;
+                """, userEmail);
 
         given()
                 .contentType(ContentType.JSON)
@@ -167,12 +167,12 @@ public class ServeRestTest {
     @Order(6)
     @DisplayName("Ключ от служебного входа - авторизация")
     public void shouldLogin() {
-        String loginBody = """
+        String loginBody = String.format("""
                 {
-                 "email": "spy_updated@qa.com",
+                  "email": "%s",
                   "password": "secret123"
                 }
-                """;
+                """, userEmail);
 
         token = given()
                 .contentType(ContentType.JSON)
